@@ -17,11 +17,6 @@ function orangesRotting(grid: number[][]): number {
         return grid[row][col] === 1;
     };
 
-    // let visited = new Array(grid.length);
-    // for (let i = 0; i < grid.length; i++){
-    //     visited[i] = (new Array(grid[0].length)).fill(false);
-    // }
-
     let currentCycle = [];
     for (let i = 0; i < grid.length; i++){
         for (let j = 0; j < grid[0].length; j++){
@@ -36,7 +31,6 @@ function orangesRotting(grid: number[][]): number {
         steps++;
         let nextCycle = [];
         for (let [row, col] of currentCycle){
-            // grid[row][col] = 2;
             for (let [nextRow, nextCol] of [[row, col-1], [row, col+1], [row+1, col], [row-1, col]]){
                 if (!isFreshOrange(nextRow, nextCol)){
                     continue;
@@ -47,14 +41,14 @@ function orangesRotting(grid: number[][]): number {
             }
         }
         currentCycle = nextCycle;
-        console.log("grid", grid);
-        console.log("nextCycle", nextCycle)
+        // console.log("grid", grid);
+        // console.log("nextCycle", nextCycle);
     }
 
     if (hasFresh()){
         return -1;
     }
     else {
-        return steps-1;
+        return Math.max(steps-1, 0);
     }
 };
