@@ -9,8 +9,6 @@ function numIslands(grid: string[][]): number {
             if (grid[i][j] === "1"){
                 if (everVisited[i][j] === false){
                     // console.log("new island at", i, j);
-                    let currentIsland = make2DArray(grid.length, grid[0].length);
-                    currentIsland[i][j] = true;
                     everVisited[i][j] = true;
 
                     let currentBatch = [[i, j]];
@@ -28,7 +26,7 @@ function numIslands(grid: string[][]): number {
                                     continue;
                                 }
 
-                                if (currentIsland[nextCoord[0]][nextCoord[1]]){
+                                if (everVisited[nextCoord[0]][nextCoord[1]]){
                                     continue;
                                 }
 
@@ -37,7 +35,6 @@ function numIslands(grid: string[][]): number {
                                 }
 
                                 nextBatch.push(nextCoord);
-                                currentIsland[nextCoord[0]][nextCoord[1]] = true;
                                 everVisited[nextCoord[0]][nextCoord[1]] = true;
                             }
                         }
