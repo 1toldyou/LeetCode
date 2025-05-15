@@ -6,6 +6,9 @@ function plusOne(digits: number[]): number[] {
             digits[i] = digits[i] % 10;
             digits[i-1] += 1;
         }
+        else {
+            break;
+        }
     }
 
     if (digits[0] >= 10){
