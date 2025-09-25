@@ -10,13 +10,12 @@ function isIsomorphic(s: string, t: string): boolean {
             }
 
             dict[a] = b;
+            exist.add(b);
         }
 
         if (dict[a] !== b){
             return false;
         }
-
-        exist.add(b);
     }
     return true;
 };
