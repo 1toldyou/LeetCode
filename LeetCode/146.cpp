@@ -4,40 +4,16 @@ struct Node {
     int key;
 };
 
+const int MAX_SIZE = 10000;
+
 class LRUCache {
 private:
-    map<int, int> vals;
-    map<int, Node*> freqs;
+    int vals[MAX_SIZE];
+    Node* freqs[MAX_SIZE];
     int capacity;
     int count = 0;
     Node* oldest = nullptr;
     Node* newest = nullptr;
-
-    void print(){
-        // cout << format("count={} newest={} oldest={}", count, newest->key, oldest->key) << endl;
-
-        // Node* head = newest;
-        // int headCount = 0;
-        // while (head){
-        //     // cout << head->key << " -> ";
-        //     head = head->next;
-        //     headCount++;
-        // }
-        // // cout << endl;
-
-        // Node* tail = oldest;
-        // int tailCount = 0;
-        // while (tail){
-        //     // cout << tail->key << " <- ";
-        //     tail = tail->prev;
-        //     tailCount++;
-        // }
-        // // cout << endl;
-
-        // if (headCount != tailCount){
-        //     cout << "headCount != tailCount" << endl;
-        // }
-    }
 
     void refresh(int key){
         if (freqs[key] == newest){
@@ -67,11 +43,15 @@ private:
 public:
     LRUCache(int capacity) {
         this->capacity = capacity;
+        for (int i = 0; i < MAX_SIZE; i++){
+            vals[i] = -1;
+            freqs[i] = nullptr;
+        }
     }
     
     int get(int key) {
         // cout << format("get({})", key) << endl;
-        if (!vals.contains(key)){
+        if (vals[key] == -1){
             return -1;
         }
 
@@ -81,7 +61,7 @@ public:
     
     void put(int key, int value) {
         // cout << format("put({},{})", key, value) << endl;
-        if (vals.contains(key)){
+        if (vals[key] != -1){
             // cout << format("Key {} exist, just need to update value", key) << endl;
             vals[key] = value;
             this->refresh(key);
@@ -90,8 +70,7 @@ public:
 
         if (count == capacity){
             // cout << format("Removing LRU {}", oldest->key) << endl;
-            vals.erase(oldest->key);
-            freqs.erase(oldest->key);
+            vals[oldest->key] = -1;
 
             Node* prev = oldest->prev;
             if (prev){
