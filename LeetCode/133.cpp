@@ -20,22 +20,22 @@ public:
 */
 
 class Solution {
-    map<int, Node*> nodes;
-    map<int, bool> processed;
+    Node* nodes[101] = {};
+    bool processed[101];
 
     void recur(Node* node){
         int key = node->val;
-        if (processed.count(key) == 1 && processed[key] == true){
+        if (processed[key] == true){
             return;
         }
     
-        if (nodes.count(key) == 0){
+        if (nodes[key] == nullptr){
             nodes[key] = new Node(key);
         }
         
         for (Node* neighbor : node->neighbors){
             int neighborKey = neighbor->val;
-            if (nodes.count(neighborKey) == 0){
+            if (nodes[neighborKey] == nullptr){
                 nodes[neighborKey] = new Node(neighborKey);
             }
             nodes[key]->neighbors.push_back(nodes[neighborKey]);
