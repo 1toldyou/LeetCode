@@ -8,7 +8,7 @@ public:
         int count = 0;
 
         while(a < b){
-            cout << format("a={} b={}\n", a, b);
+            // cout << format("a={} b={} nums[a]={} nums[b]={}\n", a, b, nums[a], nums[b]);
             if (nums[a] * k >= nums[b]){  // 
                 break;
             }
@@ -17,7 +17,10 @@ public:
                 break;
             }
 
-            if (nums[b] / nums[a+1] >= nums[b-1] / nums[a]){
+            float moveA = nums[b] * 1.0 / nums[a+1] * 1.0;
+            float moveB = nums[b-1] * 1.0 / nums[a] * 1.0;
+            cout << format("curr={} moveA={} moveB={}\n", nums[b]/nums[a], moveA, moveB);
+            if (moveA <= moveB){
                 cout << format("removing {}\n", nums[a]);
                 a++;
             }
