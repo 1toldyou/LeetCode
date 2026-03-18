@@ -5,6 +5,7 @@ class Solution:
         ans = s[0]
 
         for i in range(1, n):
+            # starts with one
             a = i
             b = i
             while a-1>= 0 and b+1<n and s[a-1] == s[b+1]:
@@ -14,7 +15,7 @@ class Solution:
             if len(s[a:b+1]) > len(ans):
                 ans = s[a:b+1]
 
-        for i in range(1, n):
+            # starts with two
             a = i-1
             b = i
             if s[a] != s[b]:
